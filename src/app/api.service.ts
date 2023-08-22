@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Player } from 'src/models/player.model';
+import { HttpClientModule } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,11 @@ export class ApiService {
   get(endpoint: string): Observable<any> {
     const url = `${this.apiUrl}/${endpoint}`;
     return this.http.get(url);
+  }
+
+  getRanPlayer(): Observable<Player> {
+    const url = `${this.apiUrl}/ranPlayer`;
+    return this.http.get<Player>(url);
   }
 
   // Exemple de méthode pour effectuer une requête POST

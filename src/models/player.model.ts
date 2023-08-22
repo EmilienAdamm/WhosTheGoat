@@ -1,24 +1,26 @@
 export class Player {
+    ID: number;
     firstname: string;
     lastname: string;
-    age: number;
+    dateOfBirth: Date;
     goals: number;
+    country: string;
     games: number;
-    assists: number;
-    clubs: Array<string>;
-    trophies: number;
-    image: string;
+    goalsSelection: number;
+    gamesSelection: number;
 
+    [key: string]: any;
 
-    constructor (firstname: string, lastname:string, age: number, goals:number, games:number, assists:number, clubs:Array<string>, trophies:number, image:string) {
+    constructor (ID: number, firstname: string, lastname:string, dateOfBirth: Date, goals:number, country: string, games:number, goalsSelection: number, gamesSelection: number) {
+        this.ID = ID;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.age = age;
+        this.dateOfBirth = dateOfBirth;
         this.goals = goals;
+        this.country = country;
         this.games = games;
-        this.assists = assists;
-        this.clubs = clubs;
-        this.trophies = trophies;
-        this.image = image;
+        this.goalsSelection = goalsSelection;
+        this.gamesSelection = gamesSelection;
+
     }
 }

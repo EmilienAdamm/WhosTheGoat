@@ -1,2 +1,29 @@
-<app-player></app-player>
-<app-player></app-player>
+<h1 class="text-center" [@counterAnimation]="questions[questionNumber]">{{ questions[questionNumber]}} </h1>
+
+<ng-container *ngIf="score >= 0">
+    <h2 class="text-center">Score: {{ score }}</h2>
+</ng-container>
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="row">
+        <ng-container *ngIf="player1$ | async as player1">
+
+            <ng-container *ngIf="player2$ | async as player2">
+
+                <div class="col-sm border border-black" (click)="verify(player1, player2)">
+                    <h1 class="text-center align-middle">{{ player1.firstname }} {{ player1.lastname }}</h1>
+                    <p *ngIf="showStats==true" class="text-center" [@counterAnimation]="player1[questionKeys[questionNumber]]"> {{ player1[questionKeys[questionNumber]] }}</p>
+                </div>
+
+                <div class="col-sm border border-black" (click)="verify(player2, player1)">
+                    <h1 class="text-center align-middle">{{ player2.firstname }} {{ player2.lastname }}</h1>
+                    <p *ngIf="showStats==true" class="text-center" [@counterAnimation]="player2[questionKeys[questionNumber]]"> {{ player2[questionKeys[questionNumber]] }}</p>
+                </div>
+
+            </ng-container>
+
+        </ng-container>
+        
+    </div>
+</div>
+
