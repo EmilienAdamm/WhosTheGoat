@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Player } from 'src/models/player.model';
-import { HttpClientModule } from '@angular/common/http';
+import { config } from '../config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://127.0.0.1:5000'; // Remplacez par l'URL de votre API
+  private apiUrl = config.apiUrl;; // Remplacez par l'URL de votre API
 
   constructor(private http: HttpClient) { }
 
@@ -21,6 +21,12 @@ export class ApiService {
   getRanPlayer(): Observable<Player> {
     const url = `${this.apiUrl}/ranPlayer`;
     return this.http.get<Player>(url);
+  }
+
+  addScore(data: number) {
+    const url = `${this.apiUrl}/addScore?score=${data}`;
+    const headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
+    this.http.post<any>(url, data).subscribe();
   }
 
   // Exemple de méthode pour effectuer une requête POST

@@ -3,6 +3,8 @@ import { Player } from 'src/models/player.model';
 import { ApiService } from '../api.service';
 import { Observable } from 'rxjs';
 import { trigger, state, style, transition, animate } from '@angular/animations'; // Importez les modules d'animation
+import { CookieService } from 'ngx-cookie-service';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-game',
@@ -20,7 +22,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 
 export class GameComponent {
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, public cookieService: CookieService, private meta: Meta) {}
 
   score!: number;
 
@@ -31,34 +33,42 @@ export class GameComponent {
   questionKeys!: Array<string>;
   questionNumber!: number;
 
+  gameState!: string;
   showStats!: boolean;
+  replayTiming!: boolean;
 
   ngOnInit() {
-    this.questions = ["Who has scored the most goals?", 
-                      "Who has played the most games ?",
+    this.questions = ["Who scored the most goals?", 
+                      "Who played the most games?",
                       "Who is older ?",
-                      "Who has the more national goals?",
-                      "Who has the most selection games?"]
+                      "Who has the most national team goals?",
+                      "Who has the most national team games?",
+                      "Who has the most assists?"]
 
-    this.questionKeys = ["goals", "games", "dateOfBirth", "goalsSelection", "gamesSelection"]
+    this.questionKeys = ["goals", "games", "dateOfBirth", "goalsSelection", "gamesSelection", "assists"]
 
     this.player1$ = this.getRanPlayer();
     this.player2$ = this.getRanPlayer();
     
     this.questionNumber = this.genNum();
     this.score = 0;
-
+    this.gameState = "live";
+    this.replayTiming = false;
   }
 
   genNum() : number {
-    return Math.floor(Math.random() * 5)
+    let num =  Math.floor(Math.random() * 6)
+    while (num == this.questionNumber) {
+      num = Math.floor(Math.random() * 6)
+    }
+    return num
   }
 
   verify(player: Player, playerSec: Player) {
 
     const selectedKey = this.questionKeys[this.questionNumber]
     this.showStats = true;
-    console.log(this.player1$, this.player2$)
+
     if (this.questionNumber == 2) {
       if (player.dateOfBirth < playerSec.dateOfBirth) {
 
@@ -67,7 +77,7 @@ export class GameComponent {
           this.questionNumber = this.genNum();
           this.showStats = false;
           this.score++;
-        }, 2000);
+        }, 2500);
 
       } else {
         this.loss()
@@ -82,7 +92,7 @@ export class GameComponent {
         this.questionNumber = this.genNum();
         this.showStats = false;
         this.score++;
-      }, 2000);
+      }, 2500);
     }
     else {
       this.loss()
@@ -95,6 +105,24 @@ export class GameComponent {
 
   loss () {
 
+    this.apiService.addScore(this.score);
+
+    setTimeout(() => {
+      this.gameState = "over";
+      const highest = + this.cookieService.get('highestScore')
+      if (this.score > highest) {
+        this.cookieService.set('highestScore', this.score.toString(), 14)
+      }
+    }, 2000);
+
+    setTimeout(() => {
+      this.replayTiming = true;
+    }, 1000);
+
+  }
+  
+  refreshPage() {
+    this.meta.addTag({ httpEquiv: 'refresh', content: '0' });
   }
 
 }
