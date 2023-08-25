@@ -37,15 +37,26 @@
                 <ng-container *ngIf="player2$ | async as player2">
 
                     <div class="row" style="height: 80vh;">
-                        <div class="col border border-black d-flex flex-column justify-content-center align-items-center" style="width: 100vw;" id="play" (click)="verify(player1, player2)">
-                            <p class="text-center display-1">{{ player1.firstname }} {{ player1.lastname }} <span class="flag-icon flag-icon-{{player1.country}}"></span></p>
-                            <p *ngIf="showStats==true" class="text-center display-4" [@counterAnimation]="player1[questionKeys[questionNumber]]">{{ player1[questionKeys[questionNumber]] }}</p>
-                        </div>
-                    
-                        <div class="col border border-black d-flex flex-column justify-content-center align-items-center" style="width: 100vw;" id="play" (click)="verify(player2, player1)">
-                            <h1 class="text-center display-1">{{ player2.firstname }} {{ player2.lastname }} <span class="flag-icon flag-icon-{{player2.country}}"></span></h1>
-                            <p *ngIf="showStats==true" class="text-center display-4" [@counterAnimation]="player2[questionKeys[questionNumber]]">{{ player2[questionKeys[questionNumber]] }}</p>
-                        </div>
+                        <ng-container *ngIf="questionNumber != 2">
+                            <div class="col border border-black d-flex flex-column justify-content-center align-items-center" style="width: 100vw;" id="play" (click)="verify(player1, player2)">
+                                <p class="text-center display-1">{{ player1.firstname }} {{ player1.lastname }} <br><span class="flag-icon flag-icon-{{player1.country}}"></span></p>
+                                <p *ngIf="showStats==true" class="text-center display-4" [@counterAnimation]="player1[questionKeys[questionNumber]]">{{ player1[questionKeys[questionNumber]] }}</p>                            </div>
+                        
+                            <div class="col border border-black d-flex flex-column justify-content-center align-items-center" style="width: 100vw;" id="play" (click)="verify(player2, player1)">
+                                <h1 class="text-center display-1">{{ player2.firstname }} {{ player2.lastname }} <br><span class="flag-icon flag-icon-{{player2.country}}"></span></h1>
+                                <p *ngIf="showStats==true" class="text-center display-4" [@counterAnimation]="player2[questionKeys[questionNumber]]">{{ player2[questionKeys[questionNumber]] }}</p>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="questionNumber == 2">
+                            <div class="col border border-black d-flex flex-column justify-content-center align-items-center" style="width: 100vw;" id="play" (click)="verify(player1, player2)">
+                                <p class="text-center display-1">{{ player1.firstname }} {{ player1.lastname }} <br><span class="flag-icon flag-icon-{{player1.country}}"></span></p>
+                                <p *ngIf="showStats==true" class="text-center display-4" [@counterAnimation]="player1[questionKeys[questionNumber]]">{{ player1[questionKeys[questionNumber]] | date: 'yyyy-MM-dd'  }}</p>                            </div>
+                        
+                            <div class="col border border-black d-flex flex-column justify-content-center align-items-center" style="width: 100vw;" id="play" (click)="verify(player2, player1)">
+                                <h1 class="text-center display-1">{{ player2.firstname }} {{ player2.lastname }} <br><span class="flag-icon flag-icon-{{player2.country}}"></span></h1>
+                                <p *ngIf="showStats==true" class="text-center display-4" [@counterAnimation]="player2[questionKeys[questionNumber]]">{{ player2[questionKeys[questionNumber]] | date: 'yyyy-MM-dd'  }}</p>                            </div>
+                        </ng-container>
                     </div>
 
                 </ng-container>
