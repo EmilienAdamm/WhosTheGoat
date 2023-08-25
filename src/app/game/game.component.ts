@@ -38,13 +38,16 @@ export class GameComponent {
   replayTiming!: boolean;
   clickIsLive!: boolean;
 
+  rightID!: number;
+
   ngOnInit() {
-    this.questions = ["Who scored the most goals?", 
-                      "Who played the most games?",
-                      "Who is older ?",
-                      "Who has the most national team goals?",
-                      "Who has the most national team games?",
-                      "Who has the most assists?"]
+    this.questions = [
+      "Who scored the most goals?", 
+      "Who played the most games?",
+      "Who is older ?",
+      "Who has the most national team goals?",
+      "Who has the most national team games?",
+      "Who has the most assists?"]
 
     this.questionKeys = ["goals", "games", "dateOfBirth", "goalsSelection", "gamesSelection", "assists"]
 
@@ -56,6 +59,7 @@ export class GameComponent {
     this.gameState = "live";
     this.replayTiming = false;
     this.clickIsLive = false;
+
   }
 
   genNum() : number {
@@ -67,23 +71,20 @@ export class GameComponent {
   }
 
   async verify(player: Player, playerSec: Player) {
-    console.log("here 1")
-    console.log(this.clickIsLive)
+
     if (this.clickIsLive == true) {
-      console.log("here 2")
       return;
     }
-    console.log(this.clickIsLive)
-    console.log("here 3")
+
     this.clickIsLive = true;
-    console.log("here 4")
-    console.log(this.clickIsLive)
+
     const click = new Audio('assets/sounds/click.mp3').play();
 
     const selectedKey = this.questionKeys[this.questionNumber]
     this.showStats = true;
 
     if ( this.questionNumber == 2 && player.dateOfBirth < playerSec.dateOfBirth ) {
+      this.rightID = player.ID;
       await setTimeout(() => {
         this.player1$ = this.getRanPlayer();
         this.questionNumber = this.genNum();
@@ -94,6 +95,7 @@ export class GameComponent {
     }
 
     else if ( player[selectedKey] >= playerSec[selectedKey]) {
+      this.rightID = player.ID;
       await setTimeout(() => {
         this.player1$ = this.getRanPlayer();
         this.player2$ = this.getRanPlayer();
@@ -105,11 +107,10 @@ export class GameComponent {
     }
 
     else {
+      this.rightID = playerSec.ID;
       this.loss()
     }
 
-    console.log("here 5")
-    console.log(this.clickIsLive)
   }
 
   getRanPlayer() : Observable<Player> {
@@ -121,16 +122,12 @@ export class GameComponent {
     this.apiService.addScore(this.score);
 
     setTimeout(() => {
-      const lossSound = new Audio('assets/sounds/loss.mp3');
-      lossSound.play();
-    }, 1000);
-
-    setTimeout(() => {
       this.gameState = "over";
       const highest = + this.cookieService.get('highestScore')
       if (this.score > highest) {
         this.cookieService.set('highestScore', this.score.toString(), 14)
       }
+      const lossSound = new Audio('assets/sounds/loss.mp3').play();
     }, 2000);
 
     setTimeout(() => {
