@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { trigger, state, style, transition, animate } from '@angular/animations'; // Importez les modules d'animation
 import { CookieService } from 'ngx-cookie-service';
 import { Meta } from '@angular/platform-browser';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-game',
@@ -71,11 +72,11 @@ export class GameComponent {
   }
 
   async verify(player: Player, playerSec: Player) {
-
+    console.log(this.questionNumber)
     if (this.clickIsLive == true) {
       return;
     }
-
+    //Denis Cheryshev Amrabat Mahrez
     this.clickIsLive = true;
 
     const click = new Audio('assets/sounds/click.mp3').play();
@@ -84,6 +85,8 @@ export class GameComponent {
     this.showStats = true;
 
     if ( this.questionNumber == 2 && player.dateOfBirth < playerSec.dateOfBirth ) {
+      console.log("ici")
+      console.log(player.dateOfBirth, playerSec.dateOfBirth)
       this.rightID = player.ID;
       await setTimeout(() => {
         this.player1$ = this.getRanPlayer();
@@ -94,7 +97,7 @@ export class GameComponent {
       }, 2500);
     }
 
-    else if ( player[selectedKey] >= playerSec[selectedKey]) {
+    else if ( this.questionNumber != 2 && player[selectedKey] >= playerSec[selectedKey]) {
       this.rightID = player.ID;
       await setTimeout(() => {
         this.player1$ = this.getRanPlayer();

@@ -35,12 +35,12 @@
 
                 <ng-container *ngIf="player2$ | async as player2">
 
-                    <div class="row" style="height: 80vh;">
+                    <div class="row" style="height: 70vh;">
                         <ng-container *ngIf="questionNumber != 2">
                             <div class="col border border-black d-flex flex-column justify-content-center align-items-center" style="width: 100vw;" id="play" (click)="verify(player1, player2)">
                                 <p class="text-center display-1 hover-underline-animation">{{ player1.firstname }} {{ player1.lastname }} <br><span class="flag-icon flag-icon-{{player1.country}}"></span></p>
-                                <p *ngIf="showStats==true" [ngClass]="{'green': player1.ID == rightID, 'red' : player1.ID != rightID }" class="text-center display-4" id="{{ player1.ID }}" [@counterAnimation]="player1[questionKeys[questionNumber]]">{{ player1[questionKeys[questionNumber]] }}</p>                            </div>
-                        
+                                <p *ngIf="showStats==true" [ngClass]="{'green': player1.ID == rightID, 'red' : player1.ID != rightID }" class="text-center display-4" id="{{ player1.ID }}" [@counterAnimation]="player1[questionKeys[questionNumber]]">{{ player1[questionKeys[questionNumber]] }}</p>                            
+                            </div>
                             <div class="col border border-black d-flex flex-column justify-content-center align-items-center" style="width: 100vw;" id="play" (click)="verify(player2, player1)">
                                 <h1 class="text-center display-1 hover-underline-animation">{{ player2.firstname }} {{ player2.lastname }} <br><span class="flag-icon flag-icon-{{player2.country}}"></span></h1>
                                 <p *ngIf="showStats==true" [ngClass]="{'green': player2.ID == rightID, 'red' : player2.ID != rightID }" class="text-center display-4" id="{{ player2.ID }}" [@counterAnimation]="player2[questionKeys[questionNumber]]">{{ player2[questionKeys[questionNumber]] }}</p>
@@ -50,11 +50,13 @@
                         <ng-container *ngIf="questionNumber == 2">
                             <div class="col border border-black d-flex flex-column justify-content-center align-items-center" style="width: 100vw;" id="play" (click)="verify(player1, player2)">
                                 <p class="text-center display-1 hover-underline-animation">{{ player1.firstname }} {{ player1.lastname }} <br><span class="flag-icon flag-icon-{{player1.country}}"></span></p>
-                                <p *ngIf="showStats==true" [ngClass]="{'green': player1.ID == rightID, 'red' : player1.ID != rightID }" class="text-center display-4" [@counterAnimation]="player1[questionKeys[questionNumber]]">{{ player1[questionKeys[questionNumber]] | date: 'yyyy-MM-dd'  }}</p>                            </div>
+                                <p *ngIf="showStats==true" [ngClass]="{'green': player1.ID == rightID, 'red' : player1.ID != rightID }" class="text-center display-4" [@counterAnimation]="player1[questionKeys[questionNumber]]">{{ player1[questionKeys[questionNumber]] | date: 'yyyy-MM-dd'  }}</p>                            
+                            </div>
                         
                             <div class="col border border-black d-flex flex-column justify-content-center align-items-center" style="width: 100vw;" id="play" (click)="verify(player2, player1)">
                                 <h1 class="text-center display-1 hover-underline-animation">{{ player2.firstname }} {{ player2.lastname }} <br><span class="flag-icon flag-icon-{{player2.country}}"></span></h1>
-                                <p *ngIf="showStats==true" [ngClass]="{'green': player2.ID == rightID, 'red' : player2.ID != rightID }" class="text-center display-4" [@counterAnimation]="player2[questionKeys[questionNumber]]">{{ player2[questionKeys[questionNumber]] | date: 'yyyy-MM-dd'  }}</p>                            </div>
+                                <p *ngIf="showStats==true" [ngClass]="{'green': player2.ID == rightID, 'red' : player2.ID != rightID }" class="text-center display-4" [@counterAnimation]="player2[questionKeys[questionNumber]]">{{ player2[questionKeys[questionNumber]] | date: 'yyyy-MM-dd'  }}</p>                            
+                            </div>
                         </ng-container>
                     </div>
 
