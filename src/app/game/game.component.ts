@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Player } from 'src/models/player.model';
 import { ApiService } from '../api.service';
 import { Observable } from 'rxjs';
@@ -24,6 +24,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 export class GameComponent {
 
   constructor(private apiService: ApiService, public cookieService: CookieService, private meta: Meta) {}
+
+  @Input() sound!: boolean;
 
   score!: number;
 
@@ -72,21 +74,19 @@ export class GameComponent {
   }
 
   async verify(player: Player, playerSec: Player) {
-    console.log(this.questionNumber)
     if (this.clickIsLive == true) {
       return;
     }
     //Denis Cheryshev Amrabat Mahrez
     this.clickIsLive = true;
-
-    const click = new Audio('assets/sounds/click.mp3').play();
+    if (this.sound) {
+      const click = new Audio('assets/sounds/click.mp3').play();
+    }
 
     const selectedKey = this.questionKeys[this.questionNumber]
     this.showStats = true;
 
     if ( this.questionNumber == 2 && player.dateOfBirth < playerSec.dateOfBirth ) {
-      console.log("ici")
-      console.log(player.dateOfBirth, playerSec.dateOfBirth)
       this.rightID = player.ID;
       await setTimeout(() => {
         this.player1$ = this.getRanPlayer();
@@ -94,7 +94,7 @@ export class GameComponent {
         this.showStats = false;
         this.score++;
         this.clickIsLive = false;
-      }, 2500);
+      }, 2250);
     }
 
     else if ( this.questionNumber != 2 && player[selectedKey] >= playerSec[selectedKey]) {
@@ -106,7 +106,7 @@ export class GameComponent {
         this.showStats = false;
         this.score++;
         this.clickIsLive = false;
-      }, 2500);
+      }, 2250);
     }
 
     else {
@@ -130,7 +130,10 @@ export class GameComponent {
       if (this.score > highest) {
         this.cookieService.set('highestScore', this.score.toString(), 14)
       }
-      const lossSound = new Audio('assets/sounds/loss.mp3').play();
+      if (this.sound) {
+        const lossSound = new Audio('assets/sounds/loss.mp3').play();
+      }
+      
     }, 2000);
 
     setTimeout(() => {
