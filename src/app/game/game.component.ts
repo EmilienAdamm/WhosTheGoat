@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { trigger, state, style, transition, animate } from '@angular/animations'; // Importez les modules d'animation
 import { CookieService } from 'ngx-cookie-service';
 import { Meta } from '@angular/platform-browser';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-game',
@@ -77,7 +76,7 @@ export class GameComponent {
     if (this.clickIsLive == true) {
       return;
     }
-    //Denis Cheryshev Amrabat Mahrez
+
     this.clickIsLive = true;
     if (this.sound) {
       const click = new Audio('assets/sounds/click.mp3').play();
@@ -88,17 +87,23 @@ export class GameComponent {
 
     if ( this.questionNumber == 2 && player.dateOfBirth < playerSec.dateOfBirth ) {
       this.rightID = player.ID;
+      if (this.sound) {
+        const click = new Audio('assets/sounds/win.mp3').play();
+      }
       await setTimeout(() => {
         this.player1$ = this.getRanPlayer();
         this.questionNumber = this.genNum();
         this.showStats = false;
         this.score++;
         this.clickIsLive = false;
-      }, 2250);
+      }, 2000);
     }
 
     else if ( this.questionNumber != 2 && player[selectedKey] >= playerSec[selectedKey]) {
       this.rightID = player.ID;
+      if (this.sound) {
+        const click = new Audio('assets/sounds/win.mp3').play();
+      }
       await setTimeout(() => {
         this.player1$ = this.getRanPlayer();
         this.player2$ = this.getRanPlayer();
@@ -106,7 +111,7 @@ export class GameComponent {
         this.showStats = false;
         this.score++;
         this.clickIsLive = false;
-      }, 2250);
+      }, 2000);
     }
 
     else {
