@@ -1,27 +1,65 @@
-# Footquizz
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
+# Who's the GOAT Football Quiz Game
 
-## Development server
+![Game Screenshot](https://rossottiranch.com/wp-content/uploads/2017/05/goat-banner.jpg)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Overview
 
-## Code scaffolding
+[Who's the GOAT :goat:]((https://goatest.football)) is a football quizz game where the user is shown two football actual or past football player and has to guess which one has the most stats.
+## Table of Contents
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+-   [Features]()
+-   [Link]()
+-   [Installation]()
+-   [Usage]()
+-   [Contributing]()
+-   [License]()
 
-## Build
+## Features
+The website uses a private API linked to the database of players.
+The data was fetched from either wikipedia or [TransferMarkt](https://www.transfermarkt.fr/) and is from the **2022/2023** season.
+-   Guess which football player has the most:
+    -   Goals scored
+    -   Games played
+    -   Assists delivered
+    -   National team games
+    -   National team goals
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Link
 
-## Running unit tests
+The game is accessible here: [who's the goat](https://goatest.football).
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Installation
+As said earlier, the website uses a private API linked to the player Database. However, if you wish to use your own DataBase or adapt the website, here is how to run the app:
+> Note: you must add a config file named config.ts in /src and insert the link to your API.
+1.  Clone this repository:
 
-## Running end-to-end tests
+    
+    `git clone https://github.com/EmilienAdamm/footquizz.git` 
+    
+2.  Navigate to the project directory:
+    
+    `cd footquizz
+    
+3.  Install the required dependencies:
+  
+  
+    `npm install` 
+    
+4.  Start the Angular development server:
+        
+    `ng serve` 
+    
+    The application should now be accessible at `http://localhost:4200`.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Contributing
 
-## Further help
+The project was created to learn the Angular framework, if you wish to modifiy or reuse the code for any personnal use, you may. If you wish to modify the stat of a player or suggest a player to add to our database, join the [discord](https://discord.gg/) and suggest it.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Acknowledgments
+
+The data was fetched and organized by [HxPulseFire](https://www.github.com/HxPulsefire).
+
+## Contact
+
+If you wish to enter in contact for a suggestion or anything related to the website, please join the following discord: discord.gg/invite.
