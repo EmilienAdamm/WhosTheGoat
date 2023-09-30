@@ -18,6 +18,7 @@
 ## Features
 The website uses a private API linked to the database of players.
 The data was fetched from either wikipedia or [TransferMarkt](https://www.transfermarkt.fr/) and is from the **2022/2023** season.
+The questions you will be asked are the following.
 -   Guess which football player has the most:
     -   Goals scored
     -   Games played
