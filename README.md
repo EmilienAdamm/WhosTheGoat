@@ -1,11 +1,11 @@
 
 # Who's the GOAT Football Quiz Game
 
-![Game Screenshot](https://chat.openai.com/c/link_to_screenshot.png)
+![Game Screenshot](https://rossottiranch.com/wp-content/uploads/2017/05/goat-banner.jpg)
 
 ## Overview
 
-Who's the GOAT :goat: is a football quizz game where the user is shown two football players
+[Who's the GOAT :goat:]((https://goatest.football)) is a football quizz game where the user is shown two football actual or past football player and has to guess which one has the most stats.
 ## Table of Contents
 
 -   [Features]()
@@ -16,9 +16,8 @@ Who's the GOAT :goat: is a football quizz game where the user is shown two footb
 -   [License]()
 
 ## Features
-
-List the main features of your application. In your case, it could be something like:
-
+The website uses a private API linked to the database of players.
+The data was fetched from either wikipedia or [TransferMarkt](https://www.transfermarkt.fr/) and is from the **2022/2023** season.
 -   Guess which football player has the most:
     -   Goals scored
     -   Games played
@@ -26,57 +25,41 @@ List the main features of your application. In your case, it could be something 
     -   National team games
     -   National team goals
 
-## Demo
+## Link
 
-Include a link or embed a video showcasing your application in action. Screenshots or GIFs can also be helpful here.
+The game is accessible here: [who's the goat](https://goatest.football).
 
 ## Installation
-
-Explain how to set up the development environment and install any dependencies. Provide clear instructions for users to get started. For example:
-
+As said earlier, the website uses a private API linked to the player Database. However, if you wish to use your own DataBase or adapt the website, here is how to run the app:
+> Note: you must add a config file named config.ts in /src and insert the link to your API.
 1.  Clone this repository:
+
     
-    bashCopy code
-    
-    `git clone https://github.com/yourusername/whos-the-goat-quiz.git` 
+    `git clone https://github.com/EmilienAdamm/footquizz.git` 
     
 2.  Navigate to the project directory:
     
-    bashCopy code
-    
-    `cd whos-the-goat-quiz` 
+    `cd footquizz
     
 3.  Install the required dependencies:
-    
-    bashCopy code
-    
+  
+  
     `npm install` 
     
 4.  Start the Angular development server:
-    
-    bashCopy code
-    
+        
     `ng serve` 
     
     The application should now be accessible at `http://localhost:4200`.
-    
-
-## Usage
-
-Explain how users can use your application. Provide a step-by-step guide on how to play the quiz game, any settings or customization options, and any other relevant information.
 
 ## Contributing
 
-If you welcome contributions from the community, provide guidelines on how others can contribute to your project. Include instructions for reporting issues and submitting pull requests.
-
-## License
-
-Specify the license under which your project is distributed. If you're unsure, you can choose from various open-source licenses like MIT, Apache, or GPL. Include the full license text in a separate file if necessary.
+The project was created to learn the Angular framework, if you wish to modifiy or reuse the code for any personnal use, you may. If you wish to modify the stat of a player or suggest a player to add to our database, join the [discord](https://discord.gg/) and suggest it.
 
 ## Acknowledgments
 
-If you used any third-party libraries, frameworks, or assets, give credit to the authors and provide links to their resources.
+The data was fetched and organized by [HxPulseFire](https://www.github.com/HxPulsefire).
 
 ## Contact
 
-Provide contact information or links to your personal or project-related social media profiles if you're open to user feedback or collaboration.
+If you wish to enter in contact for a suggestion or anything related to the website, please join the following discord: discord.gg/invite.
