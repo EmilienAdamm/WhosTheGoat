@@ -8,8 +8,8 @@
 [Who's the GOAT :goat:]((https://goatest.football)) is a football quizz game where the user is shown two football actual or past football player and has to guess which one has the most stats.
 ## Table of Contents
 
--   [Features](https://github.com/EmilienAdamm/footquizz/main/README.md#features)
--   [Link](https://github.com/EmilienAdamm/footquizz#features)
+-   [Features](https://github.com/EmilienAdamm/footquizz#features)
+-   [Link](https://github.com/EmilienAdamm/footquizz#link)
 -   [Installation](https://github.com/EmilienAdamm/footquizz#installation)
 -   [Contributing](https://github.com/EmilienAdamm/footquizz#contributing)
 -   [Acknowledgments](https://github.com/EmilienAdamm/footquizz#acknowledgments)
