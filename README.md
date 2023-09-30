@@ -40,7 +40,7 @@ As said earlier, the website uses a private API linked to the player Database. H
     
 2.  Navigate to the project directory:
     
-    `cd footquizz
+    `cd footquizz`
     
 3.  Install the required dependencies:
   
