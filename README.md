@@ -28,7 +28,7 @@ The questions you will be asked are the following.
 
 ## Link
 
-The game is accessible here: [who's the goat](https://goatest.football).
+The game is accessible here: [who's the goat](https://goatest.bet).
 
 ## Installation
 As said earlier, the website uses a private API linked to the player Database. However, if you wish to use your own DataBase or adapt the website, here is how to run the app:
@@ -60,7 +60,8 @@ The project was created to learn the Angular framework, if you wish to modifiy o
 ## Acknowledgments
 
 The data was fetched and organized by [HxPulseFire](https://www.github.com/HxPulsefire).
+The website and API are hosted and managed by [aHasera](https://github.com/ahasera).
 
 ## Contact
 
-If you wish to enter in contact for a suggestion or anything related to the website, please join the following discord: discord.gg/invite.
+If you wish to enter in contact for a suggestion or anything related to the website, please join the following discord: discord.gg/invite or add my Twitter account: [@Kaloow_](https://twitter.com/Kaloow_).
