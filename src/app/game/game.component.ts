@@ -1,10 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, NgZone } from '@angular/core';
 import { Player } from 'src/models/player.model';
 import { ApiService } from '../api.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { trigger, state, style, transition, animate } from '@angular/animations'; // Importez les modules d'animation
+import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 import { CookieService } from 'ngx-cookie-service';
 import { Meta } from '@angular/platform-browser';
+import { combineLatest, interval } from 'rxjs';
 
 @Component({
   selector: 'app-game',
@@ -16,13 +18,14 @@ import { Meta } from '@angular/platform-browser';
         style({ transform: 'scale(0.5)', opacity: 0 }),
         animate('300ms ease-out', style({ transform: 'scale(1)', opacity: 1 }))
       ])
-    ])
+    ]),
+    fadeInOnEnterAnimation(),
   ]
 })
 
 export class GameComponent {
 
-  constructor(private apiService: ApiService, public cookieService: CookieService, private meta: Meta) {}
+  constructor(private apiService: ApiService, public cookieService: CookieService, private meta: Meta, private NgZone: NgZone) {}
 
   @Input() sound!: boolean;
 
@@ -39,6 +42,9 @@ export class GameComponent {
   showStats!: boolean;
   replayTiming!: boolean;
   clickIsLive!: boolean;
+  
+  timerVal!: number;
+  timerTimer!: Subscription;
 
   rightID!: number;
 
@@ -62,6 +68,20 @@ export class GameComponent {
     this.replayTiming = false;
     this.clickIsLive = false;
 
+
+    this.timerVal = 5;
+    this.timerTimer = interval(1000).subscribe(() => {
+      this.timerVal--;
+      console.log("Timer: " + this.timerVal)
+      if (this.timerVal < 0) {
+        this.NgZone.run(() => {
+          this.loss();
+        });
+        this.timerTimer.unsubscribe();
+      }
+    });
+
+
   }
 
   genNum() : number {
@@ -76,7 +96,7 @@ export class GameComponent {
     if (this.clickIsLive == true) {
       return;
     }
-
+    this.timerTimer.unsubscribe();
     this.clickIsLive = true;
     if (this.sound) {
       const click = new Audio('assets/sounds/click.mp3').play();
@@ -86,6 +106,7 @@ export class GameComponent {
     this.showStats = true;
 
     if ( this.questionNumber == 2 && player.dateOfBirth < playerSec.dateOfBirth ) {
+      this.timerVal = 5;
       this.rightID = player.ID;
       if (this.sound) {
         const click = new Audio('assets/sounds/win.mp3').play();
@@ -96,10 +117,21 @@ export class GameComponent {
         this.showStats = false;
         this.score++;
         this.clickIsLive = false;
+        this.timerTimer = interval(1000).subscribe(() => {
+          this.timerVal--;
+          console.log("Timer: " + this.timerVal)
+          if (this.timerVal < 0) {
+            this.NgZone.run(() => {
+              this.loss();
+            });
+            this.timerTimer.unsubscribe();
+          }
+        });
       }, 2000);
     }
 
     else if ( this.questionNumber != 2 && player[selectedKey] >= playerSec[selectedKey]) {
+      this.timerVal = 5;
       this.rightID = player.ID;
       if (this.sound) {
         const click = new Audio('assets/sounds/win.mp3').play();
@@ -107,14 +139,32 @@ export class GameComponent {
       await setTimeout(() => {
         this.player1$ = this.getRanPlayer();
         this.player2$ = this.getRanPlayer();
+        
+        combineLatest([this.player1$, this.player2$]).subscribe(([player1, player2]) => {
+          if (player1.ID === player2.ID) {
+            this.player2$ = this.getRanPlayer();
+          }
+        });
+        
         this.questionNumber = this.genNum();
         this.showStats = false;
         this.score++;
         this.clickIsLive = false;
+        this.timerTimer = interval(1000).subscribe(() => {
+          this.timerVal--;
+          console.log("Timer: " + this.timerVal)
+          if (this.timerVal < 0) {
+            this.NgZone.run(() => {
+              this.loss();
+            });
+            this.timerTimer.unsubscribe();
+          }
+        });
       }, 2000);
     }
 
     else {
+      this.timerTimer.unsubscribe();
       this.rightID = playerSec.ID;
       this.loss()
     }

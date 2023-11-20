@@ -1,5 +1,5 @@
 #play:hover {
-    font-size: xx-large;
+    font-size: x-large;
     background-color: rgb(236, 255, 225);
 }
 
@@ -10,3 +10,19 @@
 .green {
     color: green
 }
+
+.progress-bar-container {
+    width: 100%; /* Ajustez la largeur de votre barre de progression */
+    height: 15px; /* Ajustez la hauteur de votre barre de progression */
+    overflow: hidden; /* Cache le dépassement de la barre de progression animée */
+    direction: rtl;
+    /* Facultatif : styles pour le conteneur de la barre de progression */
+  }
+  
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #3498db; /* Couleur de fond de la barre de progression */
+    transition: width 1s linear; /* Animation de la largeur de la barre */
+    direction: ltr;
+  }
