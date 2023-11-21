@@ -1,3 +1,4 @@
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <ng-container *ngIf="gameState == 'live'">
     <div class="progress-bar-container">
         <div class="progress-bar" [style.width.%]="timerVal * 20"></div>
@@ -22,7 +23,17 @@
             <div class="text-center">
                 <p class="text-danger display-4">GAME OVER!</p>
                 <h2>FINAL SCORE: {{score}}</h2>
-                <h2>Your personal best: {{cookieService.get('highestScore')}}</h2>
+                <ng-container *ngIf="score == +cookieService.get('highestScore')">
+                    <h2>🎉NEW PERSONAL BEST!🎉</h2>
+                </ng-container>
+                <ng-container *ngIf="score != +cookieService.get('highestScore')">
+                    <h2>PERSONAL BEST: {{cookieService.get('highestScore')}}</h2>
+                </ng-container>
+                
+                <button class="btn btn-primary rounded">
+                    <a async class="twitter-share-button twtBtn" href="https://twitter.com/intent/tweet?text=🐐I just scored 🔥{{score}}🔥 on https://goatest.bet!🐐%23GOATESTBET" target="_blank"><img class="twitterIMG" src="../../assets/images/twitter.svg">  Share your score</a>
+                </button>
+                <br> <br>
                 <div>
                     <button class="btn btn-success btn-lg" *ngIf="replayTiming == true" (click)="refreshPage()">Play again</button>
                 </div>

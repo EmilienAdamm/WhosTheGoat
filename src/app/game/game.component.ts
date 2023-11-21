@@ -20,6 +20,7 @@ import { combineLatest, interval } from 'rxjs';
       ])
     ]),
     fadeInOnEnterAnimation(),
+    fadeOutOnLeaveAnimation()
   ]
 })
 
@@ -118,7 +119,6 @@ export class GameComponent {
         this.clickIsLive = false;
         this.timerTimer = interval(1000).subscribe(() => {
           this.timerVal--;
-          console.log("Timer: " + this.timerVal)
           if (this.timerVal < 0) {
             this.NgZone.run(() => {
               this.loss();
@@ -151,7 +151,6 @@ export class GameComponent {
         this.clickIsLive = false;
         this.timerTimer = interval(1000).subscribe(() => {
           this.timerVal--;
-          console.log("Timer: " + this.timerVal)
           if (this.timerVal < 0) {
             this.NgZone.run(() => {
               this.loss();
