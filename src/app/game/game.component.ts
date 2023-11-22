@@ -49,6 +49,9 @@ export class GameComponent {
 
   rightID!: number;
 
+  analyticsPlay1!: number;
+  analyticsPlay2!: number;
+
   ngOnInit() {
     this.questions = [
       "Who scored the most goals?", 
@@ -164,6 +167,8 @@ export class GameComponent {
     else {
       this.timerTimer.unsubscribe();
       this.rightID = playerSec.ID;
+      this.analyticsPlay1 = player.ID;
+      this.analyticsPlay2 = playerSec.ID;
       this.loss()
     }
 
@@ -174,7 +179,8 @@ export class GameComponent {
   }
 
   loss () {
-
+    //access player1 and player2 ID
+    this.apiService.addAnalytics(this.questionNumber, this.rightID, this.analyticsPlay1, this.analyticsPlay2, this.score);
     this.apiService.addScore(this.score);
 
     setTimeout(() => {

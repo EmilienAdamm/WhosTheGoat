@@ -25,9 +25,24 @@ export class ApiService {
   }
 
   addScore(data: number) {
-    const url = `${this.apiUrl}/addScore?score=${data}`;
-    const headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
-    this.http.post<any>(url, data).subscribe();
+    const url = `${this.apiUrl}/addScore`;
+    const body = { score: data };
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.http.post<any>(url, body, { headers: headers }).subscribe();
+  }
+
+  addAnalytics(questionNum: number, rightID: number, player1: number, player2: number, score: number) {
+    const url = `${this.apiUrl}/addAnalytics`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = {
+      questionID: questionNum,
+      rightPlayID: rightID,
+      player1ID: player1,
+      player2ID: player2,
+      score: score
+    };
+
+    this.http.post<any>(url, body, { headers: headers }).subscribe();
   }
 
   // Exemple de méthode pour effectuer une requête POST
