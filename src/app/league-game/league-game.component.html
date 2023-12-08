@@ -1,0 +1,87 @@
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<ng-container *ngIf="gameState == 'live'">
+    <div class="progress-bar-container">
+        <div class="progress-bar" [style.width.%]="timerVal * 20"></div>
+      </div>
+</ng-container>
+
+<ng-container *ngIf="gameState == 'live'">
+    <p class="text-center display-1">{{ questions[questionNumber]}} </p>
+</ng-container>
+
+<ng-container *ngIf="score >= 0 && gameState == 'live'">
+    <h2 class="text-center">Score: {{ score }}</h2>
+</ng-container>
+
+
+<ng-container *ngIf="gameState == 'over'">
+    <div class="container d-flex flex-column vh-100">
+        <div>
+            <h3 class="text-center display-2 mt-4">Who's the <span class="text-danger">GOAAAAT</span>?!🐐 </h3>
+        </div>
+        <div class="d-flex align-items-center justify-content-center flex-grow-1">
+            <div class="text-center">
+                <p class="text-danger display-4">GAME OVER!</p>
+                <h2>FINAL SCORE: {{score}}</h2>
+                <ng-container *ngIf="score == +cookieService.get('highestLeagueScore')">
+                    <h2>🎉NEW PERSONAL BEST!🎉</h2>
+                </ng-container>
+                <ng-container *ngIf="score != +cookieService.get('highestLeagueScore')">
+                    <h2>PERSONAL BEST: {{cookieService.get('highestLeagueScore')}}</h2>
+                </ng-container>
+
+                <img alt="rankImage" class="rankImg" [src]="getBadgeImage()">
+                <br><br>
+                <button class="btn btn-primary rounded">
+                    <a async class="twitter-share-button twtBtn" href="https://twitter.com/intent/tweet?text=🐐I just scored 🔥{{score}}🔥 on Who's the League GOAT! https://goatest.bet/league!🐐%23GOATESTBET" target="_blank"><img class="twitterIMG" src="../../assets/images/twitter.svg">  Share your score</a>
+                </button>
+                <br> <br>
+                <div>
+                    <button class="btn btn-success btn-lg" *ngIf="replayTiming == true" (click)="refreshPage()">Play again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</ng-container>
+
+
+
+<ng-container *ngIf="gameState == 'live'">
+    <div class="container d-flex justify-content-center align-items-center">
+
+            <ng-container *ngIf="player1$ | async as player1">
+
+                <ng-container *ngIf="player2$ | async as player2">
+
+                    <div class="row" style="height: 70vh;">
+                        <ng-container *ngIf="questionNumber != 1">
+                            <div class="col border border-black d-flex flex-column justify-content-center align-items-center" style="width: 100vw;" id="play" (click)="verify(player1, player2)">
+                                <p class="text-center display-1 hover-underline-animation" [@fadeInOnEnter] [@fadeOutOnLeave]>{{ player1.IGN }}<br><span class="flag-icon flag-icon-{{player1.country}}"></span><img alt="roleIMG" src="../../assets/images/{{player1.role}}.png"></p>
+                                <p *ngIf="showStats==true" [ngClass]="{'green': player1.ID == rightID, 'red' : player1.ID != rightID }" class="text-center display-4" id="{{ player1.ID }}" [@counterAnimation]="player1[questionKeys[questionNumber]]">{{ player1[questionKeys[questionNumber]] }}</p>                            
+                            </div>
+                            <div class="col border border-black d-flex flex-column justify-content-center align-items-center" style="width: 100vw;" id="play" (click)="verify(player2, player1)">
+                                <h1 class="text-center display-1 hover-underline-animation" [@fadeInOnEnter]>{{ player2.IGN }}<br><span class="flag-icon flag-icon-{{player2.country}}"></span><img alt="roleIMG" src="../../assets/images/{{player2.role}}.png"></h1>
+                                <p *ngIf="showStats==true" [ngClass]="{'green': player2.ID == rightID, 'red' : player2.ID != rightID }" class="text-center display-4" id="{{ player2.ID }}" [@counterAnimation]="player2[questionKeys[questionNumber]]">{{ player2[questionKeys[questionNumber]] }}</p>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="questionNumber == 1">
+                            <div class="col border border-black d-flex flex-column justify-content-center align-items-center" style="width: 100vw;" id="play" (click)="verify(player1, player2)">
+                                <p class="text-center display-1 hover-underline-animation">{{ player1.IGN }}<br><span class="flag-icon flag-icon-{{player1.country}}"></span> <img alt="roleIMG" src="../../assets/images/{{player1.role}}.png"></p>
+                                <p *ngIf="showStats==true" [ngClass]="{'green': player1.ID == rightID, 'red' : player1.ID != rightID }" class="text-center display-4" [@fadeInOnEnter] [@counterAnimation]="player1[questionKeys[questionNumber]]">{{ player1[questionKeys[questionNumber]] | date: 'yyyy-MM-dd'  }}</p>                            
+                            </div>
+                        
+                            <div class="col border border-black d-flex flex-column justify-content-center align-items-center" style="width: 100vw;" id="play" (click)="verify(player2, player1)">
+                                <h1 class="text-center display-1 hover-underline-animation">{{ player2.IGN }}<br><span class="flag-icon flag-icon-{{player2.country}}"></span> <img alt="roleIMG" src="../../assets/images/{{player2.role}}.png"></h1>
+                                <p *ngIf="showStats==true" [ngClass]="{'green': player2.ID == rightID, 'red' : player2.ID != rightID }" class="text-center display-4" [@counterAnimation]="player2[questionKeys[questionNumber]]" [@fadeInOnEnter]>{{ player2[questionKeys[questionNumber]] | date: 'yyyy-MM-dd'  }}</p>                            
+                            </div>
+                        </ng-container>
+                    </div>
+
+                </ng-container>
+
+            </ng-container>
+            
+    </div>
+</ng-container>

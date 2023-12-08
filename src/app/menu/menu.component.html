@@ -1,0 +1,19 @@
+<ng-container *ngIf="gameStarted == false">
+    <div class="container d-flex align-items-center justify-content-center vh-100">
+      <div class="text-center">
+        <h3 class="text-center display-2">Who's the <span class="text-danger">GOAAAAT</span>?!🐐</h3>
+        <img (click)="onSoundChange()" [src]="soundImage">
+        <br>
+        <br>
+        <div class="text-center">
+            <button *ngIf="showButton" class="btn btn-outline-dark btn-lg" (click)="onStart()" id="startBtn">Start <i class="fa fa-soccer-ball-o"></i></button>
+        </div>
+        <div class="text-center">
+          <a routerLink="/league" routerLinkActive="active" ariaCurrentWhenActive="page">Try our League of Legends version!</a>
+        </div>
+        <h2 *ngIf="showButton && +highest > 0" class="text-center">🏆{{ highest }}</h2>
+      </div>
+    </div> 
+  </ng-container>
+  
+  <app-game *ngIf="this.gameStarted == true" [sound]="isChecked"></app-game>

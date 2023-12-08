@@ -1,0 +1,22 @@
+<base href="/league">
+<ng-container *ngIf="gameStarted == false">
+    <div class="container d-flex align-items-center justify-content-center vh-100">
+      <div class="text-center">
+        <h3 class="text-center display-2">Who's the <span class="small">(Rift)</span><span class="text-danger"> GOAAAAT</span>?!🐐</h3>
+        <img (click)="onSoundChange()" [src]="soundImage">
+        <br>
+        <br>
+        <div class="text-center">
+            <button *ngIf="showButton" class="btnn" (click)="onStart()" id="startBtn">Play</button>
+        </div>
+        <div class="text-center">
+        </div>
+        <h2 *ngIf="showButton && +highest > 0" class="text-center">🏆{{ highest }}</h2>
+        <img alt="rankImage" class="rankImg" [src]="getBadgeImage()">
+        <br><br>
+      </div>
+    </div> 
+  </ng-container>
+
+  <app-league-game *ngIf="this.gameStarted == true" [sound]="isChecked"></app-league-game>
+<router-outlet></router-outlet>

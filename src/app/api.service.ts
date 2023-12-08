@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Player } from 'src/models/player.model';
 import { config } from '../config';
-import { map } from 'rxjs/operators';
+import { league_player } from 'src/models/league_player';
 
 @Injectable({
   providedIn: 'root'
@@ -23,15 +23,20 @@ export class ApiService {
     const url = `${this.apiUrl}/ranPlayer`;
     return this.http.get<Player>(url);
   }
+  
+  getRanLeaguePlayer(qID: number): Observable<league_player> {
+    const url = `${this.apiUrl}/ranLeaguePlayer?qID=${qID}`;
+    return this.http.get<league_player>(url);
+  }
 
-  addScore(data: number) {
+  addScore(data: number, gameID: number) {
     const url = `${this.apiUrl}/addScore`;
-    const body = { score: data };
+    const body = { score: data, game: gameID };
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.http.post<any>(url, body, { headers: headers }).subscribe();
   }
 
-  addAnalytics(questionNum: number, rightID: number, player1: number, player2: number, score: number) {
+  addAnalytics(questionNum: number, rightID: number, player1: number, player2: number, score: number, gameID: number) {
     const url = `${this.apiUrl}/addAnalytics`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const body = {
@@ -39,16 +44,10 @@ export class ApiService {
       rightPlayID: rightID,
       player1ID: player1,
       player2ID: player2,
-      score: score
+      score: score,
+      game: gameID
     };
 
     this.http.post<any>(url, body, { headers: headers }).subscribe();
-  }
-
-  // Exemple de méthode pour effectuer une requête POST
-  post(endpoint: string, data: any): Observable<any> {
-    const url = `${this.apiUrl}/${endpoint}`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(url, data, { headers });
   }
 }

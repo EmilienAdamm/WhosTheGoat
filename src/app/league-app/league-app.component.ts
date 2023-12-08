@@ -1,19 +1,13 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { PRIMARY_OUTLET } from '@angular/router';
-import { LeagueAppComponent } from './league-app/league-app.component';
-import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: 'app-league-app',
+  templateUrl: './league-app.component.html',
+  styleUrls: ['./league-app.component.css']
 })
+export class LeagueAppComponent {
 
-export class AppComponent {
   title = 'footquizz';
   showButton = true;
   gameStarted = false;
@@ -22,7 +16,7 @@ export class AppComponent {
   soundImage = ''
 
   constructor(private cookieService: CookieService) { }
-  highest = this.cookieService.get('highestScore')
+  highest = this.cookieService.get('highestLeagueScore')
   
   ngOnInit() {
     this.isChecked = this.cookieService.get('soundPref') == 'true'; // Convert to string;
@@ -51,4 +45,27 @@ export class AppComponent {
     this.cookieService.set('soundPref', this.isChecked.toString(), 14)
   }
 
+  getBadgeImage(): string {
+    if (+this.highest < 1) {
+      return '../../assets/images/iron.png';
+    } else if (+this.highest >= 1 && +this.highest < 2) {
+      return '../../assets/images/bronze.png';
+    } else if (+this.highest >= 2 && +this.highest < 4) {
+      return '../../assets/images/silver.png';
+    } else if (+this.highest >= 4 && +this.highest < 6) {
+      return '../../assets/images/gold.png';
+    } else if (+this.highest >= 6 && +this.highest < 8) {
+      return '../../assets/images/platinium.png';
+    } else if (+this.highest >= 8 && +this.highest < 10) {
+      return '../../assets/images/emerald.png';
+    } else if (+this.highest >= 10 && +this.highest < 12) {
+      return '../../assets/images/diamond.png';
+    } else if (+this.highest >= 12 && +this.highest < 14) {
+      return '../../assets/images/master.png';
+    } else if (+this.highest >= 14 && +this.highest < 16) {
+      return '../../assets/images/grandmaster.Png';
+    } else {
+      return '../../assets/images/challenger.png';
+    }
+  }
 }

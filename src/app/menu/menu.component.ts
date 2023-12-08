@@ -1,19 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { PRIMARY_OUTLET } from '@angular/router';
-import { LeagueAppComponent } from './league-app/league-app.component';
-import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.css']
 })
-
-export class AppComponent {
+export class MenuComponent {
   title = 'footquizz';
   showButton = true;
   gameStarted = false;
@@ -50,5 +43,4 @@ export class AppComponent {
     
     this.cookieService.set('soundPref', this.isChecked.toString(), 14)
   }
-
 }
